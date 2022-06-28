@@ -1,0 +1,3 @@
+<template>
+  <p>管理员</p>
+</template>

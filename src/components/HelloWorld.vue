@@ -1,13 +1,58 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-defineProps<{ msg: string }>()
-
-const count = ref(0)
+<script lang="ts">
+import { ref, defineComponent, PropType, onMounted } from 'vue'
+import Xoo from './foo'
+interface User {
+  name: string,
+  age: number
+}
+export default defineComponent({
+  name: 'HelloWorld',
+  props: {
+    msg: {
+      type: String,
+      required: true
+    },
+    abc: {
+      type: Number,
+      required: true
+    },
+    obj: {
+      type: Object as PropType<User>,
+      default: () => ({})
+    }
+  },
+  components: {
+    Xoo
+  },
+  setup: (props) => {
+    const count = ref(0)
+    const foo = ref <{
+      a: number,
+      b: string
+    } | null>(null)
+    foo.value = {
+      a: 1,
+      b: 'hello'
+    }
+    const titleRefs = ref<HTMLHeadElement | null>(null)
+    // titleRefs
+    onMounted(() => {
+      // console.log(foo.value)
+      // console.log(titleRefs.value)
+    })
+    return {
+      count,
+      titleRefs
+    }
+  }
+})
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <Xoo :msg="'littl bitch'" />
+  <h1 ref="titleRefs">
+    {{ msg }}
+  </h1>
 
   <p>
     Recommended IDE setup:

@@ -1,15 +1,39 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+// 1.lang=ts
+// 2.要让 TypeScript 正确推断 Vue 组件选项中的类型，需要使用 defineComponent 全局方法定义组件：
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+// import {
+//   defineComponent
+// ref,
+// onMounted
+// } from 'vue'
+import locale from 'element-plus/lib/locale/lang/zh-cn'
+// import { ElConfigProvider } from 'element-plus'
+// import HelloWorld from './components/HelloWorld.vue'
+// export default defineComponent({
+//   name: 'App',
+//   components: {
+//     ElConfigProvider
+//     HelloWorld
+//   },
+//   setup () {
+//     const helloWorld = ref<InstanceType<typeof HelloWorld> | null>(null)
+//     onMounted(() => {
+//       console.log(helloWorld.value?.msg)
+//     })
+//     return {
+//       locale: zhCn
+//     }
+//   }
+// })
 </script>
 
 <template>
-  <img
-    alt="Vue logo"
-    src="./assets/logo.png"
-  >
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <!-- 路由渲染出口 -->
+  <el-config-provider :locale="locale">
+    <router-view />
+  </el-config-provider>
 </template>
 
 <style>
