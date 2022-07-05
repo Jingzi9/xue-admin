@@ -6,6 +6,7 @@
     default-active="2"
     text-color="#fff"
     router
+    :collapse="$store.state.isCollapse"
   >
     <el-menu-item index="/">
       <el-icon><document /></el-icon>
@@ -30,7 +31,7 @@
         <span>订单</span>
       </template>
 
-      <el-menu-item index="/product/product_list">
+      <el-menu-item index="/product/order_list">
         <el-icon><document /></el-icon> <span>订单列表</span>
       </el-menu-item>
     </el-sub-menu>
@@ -66,5 +67,9 @@ import {
 <style scoped lang="scss">
 .el-menu{
   border-right: none;
+}
+.el-menu:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>

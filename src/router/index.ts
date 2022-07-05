@@ -4,10 +4,13 @@ import productRoutes from './modules/product'
 import orderRoutes from './modules/order'
 import permissionRoutes from './modules/permission'
 import mediaRoutes from './modules/media'
+import nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: AppLayout,
+    meta: { title: '首页' },
     children: [
       {
         path: '', // 默认子路由
@@ -29,5 +32,11 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHashHistory(), // 路由模式
   routes // 路由规则
+})
+router.beforeEach(() => {
+  nprogress.start()// 开始加载进度条
+})
+router.afterEach(() => {
+  nprogress.done()// 加载进度条
 })
 export default router

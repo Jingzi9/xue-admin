@@ -17,7 +17,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
-    'vue/multi-word-component-names': ['error', { ignores: ['index'] }]
+    'vue/multi-word-component-names': 'off'
   },
   overrides: [// 重写某些文件的规则
     {
