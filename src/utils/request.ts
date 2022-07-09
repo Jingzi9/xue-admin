@@ -16,7 +16,7 @@ request.interceptors.request.use(function (config) {
 // 响应拦截
 request.interceptors.response.use(function (response) {
 // 统一处理接口响应错误，比如token过期无效，服务端异常
-  if (response.data.status && response.data.status === 200) {
+  if (response.data.status && response.data.status !== 200) {
     ElMessage.error(response.data.msg || '请求失败，请稍后重试')
     return Promise.reject(response.data)
   }

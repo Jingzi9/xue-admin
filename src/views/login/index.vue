@@ -75,6 +75,7 @@ import { getCaptcha, login } from '@/api/common'
 import { reactive, ref, onMounted } from 'vue'
 import type { IElForm, IFormRule } from '@/types/element-plus'
 import { useRouter } from 'vue-router'
+import { store } from '@/store'
 const CaptchaSrc = ref()
 const user = reactive({
   account: 'admin',
@@ -112,6 +113,7 @@ const handleSubmit = async () => {
   const data = await login(user).finally(() => {
     loading.value = false
   })
+  store.commit('setUser', data.user_info)
   console.log(data)
   router.replace({
     name: 'home'
