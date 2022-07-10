@@ -15,7 +15,7 @@ import { ILoginInfo, ILoginResponse } from './types/common'
 export const getLoginInfo = () => {
   return request<ILoginInfo>({
     method: 'GET',
-    url: '/admin/login/info'
+    url: '/login/info'
   })
   // return request.get<ResponseData<{
   //     logo_square: string,
@@ -28,7 +28,7 @@ export const getLoginInfo = () => {
 export const getCaptcha = () => {
   return request<Blob>({
     method: 'GET',
-    url: '/admin/captcha_pro',
+    url: '/captcha_pro',
     params: {
       stamp: Date.now()
     },
@@ -42,7 +42,14 @@ export const login = (data:{
 }) => {
   return request<ILoginResponse>({
     method: 'POST',
-    url: '/admin/login',
+    url: '/login',
     data
+  })
+}
+
+export const logout = () => {
+  return request<ILoginResponse>({
+    method: 'get',
+    url: '/setting/admin/logout'
   })
 }

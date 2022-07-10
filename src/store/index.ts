@@ -13,7 +13,7 @@ import { USER } from '@/utils/constants'
 const state = {
   count: 0,
   isCollapse: false,
-  user: getItem<IUserInfo>(USER)
+  user: getItem<{token:string}&IUserInfo>(USER)// &将多个类型合并成一个类型
   // user: JSON.parse(window.localStorage.getItem('user') || 'null') as IUserInfo |null
 }
 export type State = typeof state
