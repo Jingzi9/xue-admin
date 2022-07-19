@@ -42,8 +42,8 @@ import AppHeader from './AppHeader/index.vue'
 .el-main {
   background-color: #e9eef3;
   color: #333;
-  text-align: center;
-  line-height: 100px;
+  // text-align: center;
+  // line-height: 100px;
 }
 .el-container {
   height: 100vh;

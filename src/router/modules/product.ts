@@ -4,7 +4,8 @@ const routes: RouteRecordRaw = {
   name: '',
   component: RouterView,
   meta: {
-    title: '商品'
+    title: '商品',
+    requiresAuth: true
   },
   children: [
     {

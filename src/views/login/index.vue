@@ -74,7 +74,7 @@
 import { getCaptcha, login } from '@/api/common'
 import { reactive, ref, onMounted } from 'vue'
 import type { IElForm, IFormRule } from '@/types/element-plus'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { store } from '@/store'
 const CaptchaSrc = ref()
 const user = reactive({
@@ -83,6 +83,7 @@ const user = reactive({
   imgcode: ''
 })
 const router = useRouter()
+const route = useRoute()
 const form = ref<IElForm | null>(null)
 const loading = ref(false)
 const rules = ref<IFormRule>({
@@ -114,10 +115,12 @@ const handleSubmit = async () => {
     loading.value = false
   })
   store.commit('setUser', { ...data.user_info, token: data.token })
+  let redirect = route.query.redirect || '/'
+  if (typeof redirect !== 'string') {
+    redirect = '/'
+  }
   console.log(data)
-  router.replace({
-    name: 'home'
-  })
+  router.replace(redirect)
   // loading.value = false
 }
 
