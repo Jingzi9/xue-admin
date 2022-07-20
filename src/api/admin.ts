@@ -38,7 +38,7 @@ export const updateAdmin = (id: number, data: AdminPostData) => {
 export const updateAdminStatus = (id: number, status: number) => {
   return request({
     method: 'PUT',
-    url: `/setting/admin/${id}/${status}`
+    url: `/setting/set_status/${id}/${status}`
   })
 }
 

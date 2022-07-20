@@ -103,6 +103,7 @@
               :active-value="1"
               :inactive-value="0"
               :loading="scope.row.statusLoading"
+              @change="handleStatusChange(scope.row)"
             />
           </template>
         </el-table-column>
@@ -112,14 +113,17 @@
           min-width="100"
           align="center"
         >
-          <template #default>
+          <template #default="scope">
             <el-button
               link
               type="primary"
             >
               编辑
             </el-button>
-            <el-popconfirm title="确认删除吗？">
+            <el-popconfirm
+              title="确认删除吗？"
+              @confirm="handleDelete(scope.row.id)"
+            >
               <template #reference>
                 <el-button
                   link
@@ -145,8 +149,9 @@
 </template>
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue'
-import { getAdmins } from '@/api/admin'
+import { getAdmins, deleteAdmin, updateAdminStatus } from '@/api/admin'
 import type { IListParams, Admin } from '@/api/types/admin'
+import { ElMessage } from 'element-plus'
 const list = ref<Admin[]>([]) // 列表数组
 const listCount = ref(0)
 const listLoading = ref(true)
@@ -162,11 +167,26 @@ const loadList = async () => {
   const data = await getAdmins(listParams).finally(() => {
     listLoading.value = false
   })
+  data.list.forEach(item => {
+    item.statusLoading = false
+  })
   list.value = data.list
   listCount.value = data.count
 }
 const handleQuery = async () => {
   loadList()
+}
+const handleDelete = async (id:number) => {
+  await deleteAdmin(id)
+  ElMessage('删除成功')
+  loadList()
+}
+const handleStatusChange = async (item:Admin) => {
+  item.statusLoading = true
+  await updateAdminStatus(item.id, item.status).finally(() => {
+    item.statusLoading = false
+  })
+  ElMessage.success(`${item.status === 1 ? '启用' : '禁用'}成功`)
 }
 onMounted(() => {
   loadList()
